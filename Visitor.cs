@@ -6,16 +6,59 @@ namespace DesignPattern.VisitorPattern;
 // take zoo as an example.
 // there are abstract visitor, concrete visitor, abstract element, concrete element, object struct in this pattern.
 /* basic structure:
-
+    * 1. abstract element: IScenerySpot
+    * 2. concrete element: LeopardSpot, DolphinSpot
+    * 3. abstract visitor: IVisitor<T>
+    * 4. concrete visitor: StudentVisitor, TeacherVisitor
+    * 5. object struct: Zoo
 */
 
 static class VisitorPattern
 {
     public static void Run()
     {
+        Zoo zoo = new();
+        // add spots
+        zoo.Add(new LeopardSpot());
+        zoo.Add(new DolphinSpot());
+
+        // zoo accept different visitors
+
+        // accept student visitor
+        System.Console.WriteLine("student visitor price: " + zoo.Accept(new StudentVisitor()));
+
+        // accept teacher visitor
+        System.Console.WriteLine("teacher visitor price: " + zoo.Accept(new TeacherVisitor()));
 
     }
 }
+
+class Zoo {
+    private List<IScenerySpot> list = new();
+
+    public double Accept(IVisitor<double> visitor)
+    {
+        double total = 0;
+        foreach (var spot in list)
+        {
+            total += spot.Accept(visitor);
+        }
+        return total;
+    }
+
+    public void Add(IScenerySpot spot)
+    {
+        list.Add(spot);
+    }
+
+    public void Remove(IScenerySpot spot)
+    {
+        list.Remove(spot);
+    }
+
+}
+
+
 
 // abstract element : scenery spot
 public interface IScenerySpot
@@ -29,15 +72,15 @@ public interface IScenerySpot
 // abstract visitor
 public interface IVisitor<T>
 {
-    T Visit(LeopardSpot spot);
-    T Visit(DolphinSpot spot);
+    T VisitLeopardSpot(LeopardSpot spot);
+    T VisitDolphinSpot(DolphinSpot spot);
 }
 
 public class LeopardSpot : IScenerySpot
 {
     public T Accept<T>(IVisitor<T> visitor)
     {
-        return visitor.Visit(this);
+        return visitor.VisitLeopardSpot(this);
     }
 
     public double GetPrice()
@@ -50,7 +93,7 @@ public class DolphinSpot : IScenerySpot
 {
     public T Accept<T>(IVisitor<T> visitor)
     {
-        return visitor.Visit(this);
+        return visitor.VisitDolphinSpot(this);
     }
 
     public double GetPrice()
@@ -61,12 +104,12 @@ public class DolphinSpot : IScenerySpot
 
 class StudentVisitor : IVisitor<double>
 {
-    public double Visit(LeopardSpot spot)
+    public double VisitLeopardSpot(LeopardSpot spot)
     {
-        return spot.GetPrice() / 2;
+        return spot.GetPrice() * 0.5;
     }
 
-    public double Visit(DolphinSpot spot)
+    public double VisitDolphinSpot(DolphinSpot spot)
     {
         return spot.GetPrice() / 2;
     }
@@ -74,14 +117,14 @@ class StudentVisitor : IVisitor<double>
 
 class TeacherVisitor : IVisitor<double>
 {
-    public double Visit(LeopardSpot spot)
+    public double VisitLeopardSpot(LeopardSpot spot)
     {
-        return spot.GetPrice() * 0.8;
+        return spot.GetPrice();
     }
 
-    public double Visit(DolphinSpot spot)
+    public double VisitDolphinSpot(DolphinSpot spot)
     {
-        return spot.GetPrice() * 0.8;
+        return spot.GetPrice();
     }
 }
 
