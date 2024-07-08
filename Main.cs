@@ -3,6 +3,8 @@ using DesignPattern.Observer;
 using DesignPattern.VisitorPattern;
 using DesignPattern.PublisherSubscriber;
 using DesignPattern.Factory;
+using DesignPattern.Strategy;
+using DesignPattern.ChainofResponsibility;
 
 class Program
 {
@@ -23,5 +25,14 @@ class Program
         // Factory pattern
         Console.WriteLine("–––––Factory pattern–––––");
         FactoryPattern.Run();
+
+        // Strategy pattern
+        Console.WriteLine("------Strategy pattern------");
+        StrategyPattern.Run();
+
+        // chain of responsibility
+        Console.WriteLine("-------- Chain of Responsibility pattern-----");
+        ChainofResponsibilityPattern.Run();
+
     }
 }
