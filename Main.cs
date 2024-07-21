@@ -5,6 +5,8 @@ using DesignPattern.PublisherSubscriber;
 using DesignPattern.Factory;
 using DesignPattern.Strategy;
 using DesignPattern.ChainofResponsibility;
+using DesignPattern.Builder;
+using DesignPattern.Decorator;
 
 class Program
 {
@@ -33,6 +35,12 @@ class Program
         // chain of responsibility
         Console.WriteLine("-------- Chain of Responsibility pattern-----");
         ChainofResponsibilityPattern.Run();
+
+        Console.WriteLine("-------Builder pattern-------");
+        BuilderPattern.Run();
+
+        Console.WriteLine("--------Decorator pattern-------");
+        DecoratorPattern.Run();
 
     }
 }

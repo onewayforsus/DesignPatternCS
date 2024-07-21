@@ -1,7 +1,8 @@
 using System;
 using System.Security.Cryptography.X509Certificates;
 
-namespace DesignPattern.Observer;
+namespace DesignPattern.Observer
+{
 
 // Observer pattern
 
@@ -64,4 +65,6 @@ public class Observer
         Console.WriteLine($"Sender: {type.Name}");
         Console.WriteLine($"Message: {e.Message}");
     }
+}
+
 }
